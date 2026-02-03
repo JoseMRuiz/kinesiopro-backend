@@ -5,6 +5,7 @@ from fastapi.security import HTTPBearer
 from fastapi.openapi.utils import get_openapi
 from dotenv import load_dotenv
 import os
+import re
 
 # Routers
 from app.routers import auth, usuarios, roles, turnos, pacientes, kinesiologos, servicios, salas, recepcion,historias_clinicas
@@ -40,18 +41,14 @@ app = FastAPI(
 # 🔐 Seguridad global
 bearer_scheme = HTTPBearer()
 
-# ⚙️ CORS para frontend
-# ⚙️ CORS para frontend
+# ⚙️ CORS para frontend - Acepta todas las URLs de Vercel con regex
+origins_regex = re.compile(
+    r"^https:\/\/turnos-kinesiopro-front.*\.vercel\.app$|^http:\/\/localhost:\d+$"
+)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://turnos-kinesiopro-front.vercel.app",
-        "https://turnos-kinesiopro-front-qpt2wljr0-josemruizs-projects.vercel.app",
-        "https://turnos-kinesiopro-front-git-main-josemruizs-projects.vercel.app",
-        "https://*.vercel.app",  # Cualquier subdominio de vercel
-        "http://localhost:5173",
-        "http://localhost:5174",
-    ],
+    allow_origin_regex=origins_regex.pattern,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
