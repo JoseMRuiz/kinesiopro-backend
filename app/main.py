@@ -45,7 +45,10 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://turnos-kinesiopro-front.vercel.app",
+        "https://turnos-kinesiopro-front-qpt2wljr0-josemruizs-projects.vercel.app",  # Preview URL
+        "https://turnos-kinesiopro-front-git-main-josemruizs-projects.vercel.app",  # Git URL
         "http://localhost:5173",  # Para desarrollo local
+        "http://localhost:5174",
     ],
     allow_credentials=True,
     allow_methods=["*"],
