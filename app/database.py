@@ -11,9 +11,18 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if DATABASE_URL is None:
     raise RuntimeError("DATABASE_URL no está definida. Revisá el archivo .env")
 
+# Remover parámetros SSL de la URL si existen
+if "?" in DATABASE_URL:
+    DATABASE_URL = DATABASE_URL.split("?")[0]
+
+# Crear engine con SSL habilitado en connect_args
 engine = create_engine(
     DATABASE_URL,
-    pool_pre_ping=True
+    connect_args={
+        "ssl_disabled": False  # Habilita SSL para Aiven
+    },
+    pool_pre_ping=True,
+    pool_recycle=3600  # Recicla conexiones cada hora
 )
 
 SessionLocal = sessionmaker(
