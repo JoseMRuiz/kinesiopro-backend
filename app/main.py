@@ -41,13 +41,15 @@ app = FastAPI(
 bearer_scheme = HTTPBearer()
 
 # ⚙️ CORS para frontend
+# ⚙️ CORS para frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://turnos-kinesiopro-front.vercel.app",
-        "https://turnos-kinesiopro-front-qpt2wljr0-josemruizs-projects.vercel.app",  # Preview URL
-        "https://turnos-kinesiopro-front-git-main-josemruizs-projects.vercel.app",  # Git URL
-        "http://localhost:5173",  # Para desarrollo local
+        "https://turnos-kinesiopro-front-qpt2wljr0-josemruizs-projects.vercel.app",
+        "https://turnos-kinesiopro-front-git-main-josemruizs-projects.vercel.app",
+        "https://*.vercel.app",  # Cualquier subdominio de vercel
+        "http://localhost:5173",
         "http://localhost:5174",
     ],
     allow_credentials=True,
